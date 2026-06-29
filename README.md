@@ -40,7 +40,6 @@ Below are sample detection outputs on test images:
 |----------|
 | ![Sample5](https://github.com/user-attachments/assets/3a610052-c4f1-436d-bea6-8b028be06904) |
 
-*(You can adjust the table column count to fit your layout preference.)*
 
 ---
 
