@@ -1,0 +1,17 @@
+path: ./data
+train: images/train_oversampled   # 如果执行了过采样，否则用 images/train
+val: images/val
+test: images/test
+
+nc: 10
+names:
+  0: '1级'
+  1: '2级'
+  2: '3级'
+  3: '4级'
+  4: '5级'
+  5: '污渍'
+  6: '破损'
+  7: '褶皱'
+  8: '标签'
+  9: '箱子'

@@ -1,0 +1,55 @@
+# Box-only 检测器配置 — 两阶段推理的阶段二
+# 在 label crop 区域内只检测 box (1类)
+
+model:
+  architecture: yolov8n
+  input_size: [320, 320]          # 裁剪后区域小，320 足够
+  num_classes: 1                  # 只有 box
+  pretrained_path: yolov8n.pt
+  weights_path: models/box_detector.pt
+
+data:
+  root: E:/energy_label_defect_detection/P/data/box_crops
+  dataset_yaml: ./data/box_crops/dataset.yaml
+  train_images: data/box_crops/images/train
+  train_labels: data/box_crops/labels/train
+  val_images: data/box_crops/images/val
+  val_labels: data/box_crops/labels/val
+
+training:
+  device: 0
+  epochs: 150
+  patience: 30
+  batch_size: 32                  # 320 分辨率可用更大 batch
+  cache: true
+  optimizer: SGD
+  lr0: 0.01
+  lrf: 0.01
+  momentum: 0.937
+  weight_decay: 0.0005
+  seed: 42
+  workers: 2
+  amp: false
+
+  # Loss
+  cls: 1.0
+  box: 7.5
+  dfl: 1.5
+  fl_gamma: 0.0                  # 单类不需要 focal loss
+  class_weights:
+    0: 1.0                        # 只有 box
+
+  # Augmentation (更强, 因为只有 box, 不担心破坏其他类)
+  mosaic: 1.0
+  mixup: 0.15
+  copy_paste: 0.0
+  degrees: 15.0
+  scale: 0.6
+  shear: 2.0
+  perspective: 0.0005
+  translate: 0.1
+  fliplr: 0.5
+  flipud: 0.0
+  hsv_h: 0.02
+  hsv_s: 0.8
+  hsv_v: 0.5
